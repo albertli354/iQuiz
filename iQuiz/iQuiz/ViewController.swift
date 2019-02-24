@@ -8,19 +8,30 @@
 
 import UIKit
 
+// struct for storing json data
+struct Quiz: Decodable {
+    let title: String
+    let desc: String
+    let questions: [Question]
+}
 
-
+struct Question: Decodable {
+    let text: String
+    let answer: String
+    let answers: [String]
+}
 
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingButton: UIBarButtonItem!
-    var subjectsTitles = ["Mathematics", "Marvel Super Heroes", "Science"]
-    var shortDescription = ["The study of quantity, structure, space, and change", "Let's save the world", "A modern religion"]
-    var images = ["math.jpg", "marvel.png", "science.png"]
+    var subjectsTitles: [String] = []
+    var shortDescription: [String] = []
+    var images = ["science.jpg", "marvel.png", "math.png"]
+    var quizContent: [Quiz]? = nil
+//    var test: [WebsiteDescription]
     
     
     override func viewDidLoad() {
@@ -28,6 +39,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        
+        parseJson()
     }
     
     
@@ -50,7 +63,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-    
+    //    fetch json data
+    func parseJson() {
+        // practice
+        guard let url = URL(string: "http://tednewardsandbox.site44.com/questions.json") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, res, err) in
+            guard let data = data else { return }
+            
+            do {
+                self.quizContent = try JSONDecoder().decode([Quiz].self, from: data)
+                for quiz in self.quizContent! {
+                    self.subjectsTitles.append(quiz.title)
+                    self.shortDescription.append(quiz.desc)
+                }
+                
+            }catch let jsonError {
+                print("Error: \(jsonError)")
+            }
+            DispatchQueue.main.async() {
+                self.tableView.reloadData()
+            }
+        }.resume()
+        
+    }
     
     
 }

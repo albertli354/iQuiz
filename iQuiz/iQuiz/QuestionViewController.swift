@@ -10,6 +10,14 @@ import UIKit
 
 class QuestionViewController: UIViewController {
 
+    
+//    @IBOutlet weak var choiceA: UIButton!
+//    @IBOutlet weak var choiceD: UIButton!
+//    @IBOutlet weak var choiceC: UIButton!
+//    @IBOutlet weak var choiceB: UIButton!
+    
+    @IBOutlet var choices: [UIButton]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
