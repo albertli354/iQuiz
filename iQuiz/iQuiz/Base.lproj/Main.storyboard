@@ -108,18 +108,30 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUa-oo-mfh">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="30"/>
                                         <state key="normal" title="ButtonA"/>
+                                        <connections>
+                                            <action selector="selectA:" destination="S4k-S5-wHS" eventType="touchUpInside" id="D2C-9o-EYE"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdo-eV-RVK">
                                         <rect key="frame" x="0.0" y="51" width="354" height="30"/>
                                         <state key="normal" title="ButtonB"/>
+                                        <connections>
+                                            <action selector="selectB:" destination="S4k-S5-wHS" eventType="touchUpInside" id="DQC-0u-god"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IqP-5V-vnk">
                                         <rect key="frame" x="0.0" y="102" width="354" height="30"/>
                                         <state key="normal" title="ButtonC"/>
+                                        <connections>
+                                            <action selector="selectC:" destination="S4k-S5-wHS" eventType="touchUpInside" id="uUa-Gu-Dm2"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z5c-5u-kNF">
                                         <rect key="frame" x="0.0" y="153" width="354" height="30"/>
                                         <state key="normal" title="ButtonD"/>
+                                        <connections>
+                                            <action selector="selectD:" destination="S4k-S5-wHS" eventType="touchUpInside" id="Sj3-Hz-p62"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

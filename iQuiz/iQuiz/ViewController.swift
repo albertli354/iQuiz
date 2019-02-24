@@ -31,7 +31,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var shortDescription: [String] = []
     var images = ["science.jpg", "marvel.png", "math.png"]
     var quizContent: [Quiz]? = nil
-//    var test: [WebsiteDescription]
     
     
     override func viewDidLoad() {
@@ -45,7 +44,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     @IBAction func settingsAction(_ sender: Any) {
-        let alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Settings", message: "Enter a URL to retrieve data online", preferredStyle: .alert)
+        
+        alert.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter URL here"
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))        
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
@@ -65,7 +70,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //    fetch json data
     func parseJson() {
-        // practice
         guard let url = URL(string: "http://tednewardsandbox.site44.com/questions.json") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, res, err) in
@@ -85,7 +89,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.tableView.reloadData()
             }
         }.resume()
-        
+    }
+    
+    // pass index to the question view controller
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = tableView.indexPathForSelectedRow{
+            let subjectIndex = indexPath.row
+            let questionView = segue.destination as! QuestionViewController
+            questionView.quizContent = self.quizContent
+            questionView.subjectIndex = subjectIndex
+        }
     }
     
     
