@@ -10,21 +10,27 @@ import UIKit
 
 class AnswerViewController: UIViewController {
 
+    var correctAnswerText: String = ""
+    var userSelection: Int = -1
+    var totalAnswered: Int = 0
+    var rightNum: Int = -1
+    var questionText: String = ""
+    var userAnswerText: String = ""
+    
+    @IBOutlet weak var answerView: UILabel!
+    @IBOutlet weak var indicatorView: UILabel!
+    @IBOutlet weak var currectAnswerView: UILabel!
+    @IBOutlet weak var userAnswerView: UILabel!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        answerView.text = questionText
+        currectAnswerView.text = correctAnswerText
+        userAnswerView.text = userAnswerText
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

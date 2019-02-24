@@ -146,7 +146,8 @@
                                 </constraints>
                                 <state key="normal" title="Submit"/>
                                 <connections>
-                                    <segue destination="yCE-T2-dUt" kind="show" id="UxZ-2N-9nk"/>
+                                    <action selector="submitAnswer:" destination="S4k-S5-wHS" eventType="touchUpInside" id="xVD-a6-QAC"/>
+                                    <segue destination="yCE-T2-dUt" kind="show" identifier="toAnswer" id="UxZ-2N-9nk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fs-1O-AYJ">
@@ -182,10 +183,7 @@
                         <outlet property="choiceB" destination="sdo-eV-RVK" id="weP-C0-6el"/>
                         <outlet property="choiceC" destination="IqP-5V-vnk" id="Qa4-Zk-vgx"/>
                         <outlet property="choiceD" destination="z5c-5u-kNF" id="JLw-pZ-aWL"/>
-                        <outletCollection property="choices" destination="SUa-oo-mfh" collectionClass="NSMutableArray" id="KMK-JC-F7x"/>
-                        <outletCollection property="choices" destination="sdo-eV-RVK" collectionClass="NSMutableArray" id="avg-Hb-Hrt"/>
-                        <outletCollection property="choices" destination="IqP-5V-vnk" collectionClass="NSMutableArray" id="DHp-8T-B9y"/>
-                        <outletCollection property="choices" destination="z5c-5u-kNF" collectionClass="NSMutableArray" id="Is6-jP-kg7"/>
+                        <outlet property="questionLabel" destination="DRb-DK-ZO8" id="9he-81-ldb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f0A-JA-E5v" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -249,17 +247,50 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Answer is:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaF-IM-xyz">
+                                <rect key="frame" x="20" y="291" width="118" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Mlf-TG-GPu"/>
+                                    <constraint firstAttribute="width" constant="118" id="irF-VG-i5T"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct Answr" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYJ-R3-zek">
+                                <rect key="frame" x="198" y="212" width="196" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="IYw-Fh-wek"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Answer goes here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0My-IH-Ygg">
+                                <rect key="frame" x="146" y="291" width="248" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rlj-wQ-68p" firstAttribute="leading" secondItem="Xjk-Iv-Mkt" secondAttribute="leading" constant="30" id="21O-jx-4f7"/>
+                            <constraint firstItem="0My-IH-Ygg" firstAttribute="top" secondItem="ElE-uf-Bej" secondAttribute="bottom" constant="58" id="2Mi-vy-FEU"/>
+                            <constraint firstItem="wYJ-R3-zek" firstAttribute="leading" secondItem="ElE-uf-Bej" secondAttribute="trailing" constant="8" id="6uN-v5-xWj"/>
+                            <constraint firstItem="0My-IH-Ygg" firstAttribute="leading" secondItem="gaF-IM-xyz" secondAttribute="trailing" constant="8" id="AMv-wE-DaS"/>
                             <constraint firstItem="zC2-hK-Koe" firstAttribute="top" secondItem="Xjk-Iv-Mkt" secondAttribute="top" id="DPl-18-uJw"/>
                             <constraint firstItem="oRm-Ht-WpN" firstAttribute="leading" secondItem="Xjk-Iv-Mkt" secondAttribute="leading" constant="20" id="EYp-ix-vBc"/>
                             <constraint firstItem="Xjk-Iv-Mkt" firstAttribute="trailing" secondItem="rlj-wQ-68p" secondAttribute="trailing" constant="30" id="Fxh-mb-NAn"/>
                             <constraint firstItem="smi-1t-PzX" firstAttribute="leading" secondItem="Xjk-Iv-Mkt" secondAttribute="leading" constant="30" id="IgL-M3-oKE"/>
                             <constraint firstItem="ElE-uf-Bej" firstAttribute="leading" secondItem="Xjk-Iv-Mkt" secondAttribute="leading" constant="20" id="OXd-eD-jtA"/>
                             <constraint firstItem="ElE-uf-Bej" firstAttribute="top" secondItem="smi-1t-PzX" secondAttribute="bottom" constant="91" id="QpI-w4-INn"/>
+                            <constraint firstItem="Xjk-Iv-Mkt" firstAttribute="trailing" secondItem="wYJ-R3-zek" secondAttribute="trailing" constant="20" id="Ug5-3e-MjR"/>
+                            <constraint firstItem="gaF-IM-xyz" firstAttribute="leading" secondItem="Xjk-Iv-Mkt" secondAttribute="leading" constant="20" id="V6J-uD-UAr"/>
+                            <constraint firstItem="wYJ-R3-zek" firstAttribute="top" secondItem="smi-1t-PzX" secondAttribute="bottom" constant="91" id="W9N-Li-oxK"/>
+                            <constraint firstItem="Xjk-Iv-Mkt" firstAttribute="trailing" secondItem="0My-IH-Ygg" secondAttribute="trailing" constant="20" id="Z2r-UZ-iWs"/>
                             <constraint firstItem="smi-1t-PzX" firstAttribute="top" secondItem="Xjk-Iv-Mkt" secondAttribute="top" constant="80" id="aMw-DS-DCW"/>
+                            <constraint firstItem="gaF-IM-xyz" firstAttribute="top" secondItem="ElE-uf-Bej" secondAttribute="bottom" constant="58" id="dEA-xj-4HC"/>
                             <constraint firstItem="Xjk-Iv-Mkt" firstAttribute="bottom" secondItem="rlj-wQ-68p" secondAttribute="bottom" constant="30" id="djg-Fx-9ki"/>
                             <constraint firstItem="Xjk-Iv-Mkt" firstAttribute="trailing" secondItem="zC2-hK-Koe" secondAttribute="trailing" constant="20" id="itP-Zl-Qez"/>
                             <constraint firstItem="oRm-Ht-WpN" firstAttribute="top" secondItem="Xjk-Iv-Mkt" secondAttribute="top" id="izk-Yp-fdn"/>
@@ -267,10 +298,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Xjk-Iv-Mkt"/>
                     </view>
+                    <connections>
+                        <outlet property="answerView" destination="smi-1t-PzX" id="UjE-AJ-AiW"/>
+                        <outlet property="currectAnswerView" destination="wYJ-R3-zek" id="9AE-CK-6dG"/>
+                        <outlet property="indicatorView" destination="rlj-wQ-68p" id="u8n-2S-hsX"/>
+                        <outlet property="userAnswerView" destination="0My-IH-Ygg" id="QhX-Bd-YEA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="clp-Xw-Y0L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1900" y="132"/>
+            <point key="canvasLocation" x="1900.0000000000002" y="131.25"/>
         </scene>
         <!--Finished View Controller-->
         <scene sceneID="acM-SB-C7M">
@@ -330,6 +367,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="aNx-97-g2S"/>
+        <segue reference="MoN-QP-1T7"/>
     </inferredMetricsTieBreakers>
 </document>
