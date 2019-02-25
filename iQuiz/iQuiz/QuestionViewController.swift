@@ -18,14 +18,16 @@ class QuestionViewController: UIViewController {
     var choices: [UIButton]! = nil
     
     var correctAnswerText: String = ""
-    var userSelection: Int = -1
+    var userSelectionIndex: Int = -1
     var quizContent: [Quiz]? = nil
     var subjectIndex: Int? = nil
     var totalAnswered: Int = 0
     var questionText: String = ""
     var userAnswerText: String = ""
-//    var rightNum: Int = 0
-
+    var correctAnswerIndex: Int = -1
+    var answeredRight: Bool = false
+    var rightNum: Int = 0
+    
     @IBOutlet weak var questionLabel: UILabel!
     
     
@@ -59,14 +61,17 @@ class QuestionViewController: UIViewController {
     
     func colorHelper(userSlection index: Int) {
         choices[index].backgroundColor = UIColor.blue
+        correctAnswerIndex = Int(quizContent![subjectIndex!].questions[totalAnswered].answer)!
+        correctAnswerText = quizContent![subjectIndex!].questions[totalAnswered].answers[correctAnswerIndex - 1]
         for i in 0...3 {
             if i != index {
                 choices[i].backgroundColor = UIColor.lightGray
             } else {
-                userSelection = i
+                userSelectionIndex = i
                 userAnswerText = quizContent![subjectIndex!].questions[totalAnswered].answers[i]
             }
         }
+
     }
 
     
@@ -79,10 +84,17 @@ class QuestionViewController: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! AnswerViewController
-        vc.questionText = questionText
-        vc.correctAnswerText = correctAnswerText
-        vc.userAnswerText = userAnswerText
+        if segue.identifier == "toAnswer" {
+            let vc = segue.destination as! AnswerViewController
+            vc.questionText = questionText
+            vc.correctAnswerText = correctAnswerText
+            vc.userAnswerText = userAnswerText
+            vc.correctAnswerIndex = correctAnswerIndex
+            vc.userSelectionIndex = userSelectionIndex
+            vc.totalAnswered = totalAnswered
+            vc.quizContent = quizContent
+            vc.subjectIndex = subjectIndex!
+        }
     }
 
 }
