@@ -52,9 +52,8 @@ class AnswerViewController: UIViewController {
     }
     
     @IBAction func nextButton(_ sender: Any) {
-        totalAnswered += 1
-        if totalAnswered == (quizContent?[subjectIndex].questions.count)! {
-            performSegue(withIdentifier: "toFinishView", sender: self)
+        if totalAnswered == (quizContent?[subjectIndex].questions.count)! - 1 {
+            performSegue(withIdentifier: "toFinishedView", sender: self)
         } else {
             performSegue(withIdentifier: "backToQuestion", sender: self)
         }
@@ -64,7 +63,7 @@ class AnswerViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "backToQuestion" {
             let vc = segue.destination as! QuestionViewController
-            vc.totalAnswered = totalAnswered
+            vc.totalAnswered = totalAnswered + 1
             vc.rightNum = rightNum
         } else if (segue.identifier == "toFinishedView") {
             let vc = segue.destination as! FinishedViewController
