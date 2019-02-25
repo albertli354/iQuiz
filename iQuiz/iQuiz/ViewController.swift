@@ -32,6 +32,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var images = ["science.jpg", "marvel.png", "math.png"]
     var quizContent: [Quiz]? = nil
     var jsonUrl = "http://tednewardsandbox.site44.com/questions.json"
+    // my own json url: https://api.myjson.com/bins/16slme
     var userInput: UITextField = UITextField()
     
     override func viewDidLoad() {
@@ -40,7 +41,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         
-        parseJson()
+//        if Reachability.isConnectedToNetwork(){
+//            //parseJson()
+//            if quizContent == nil {
+//                downloadFailAlert()
+//            }
+//        }else{
+//            noInternetAlert()
+//
+//        }
     }
     
     
@@ -52,17 +61,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.userInput.placeholder = "Enter URL here"
         }
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+        alert.addAction(UIAlertAction(title: "cancel", style: .default, handler: nil))        
+        alert.addAction(UIAlertAction(title: "check now", style: .default, handler: {
             (act: UIAlertAction) in
             if (self.userInput.text != nil) {
-                self.jsonUrl = self.userInput.text!
+                self.parseJson(self.userInput.text!)
             }
         
         }
         ))
     
         present(alert, animated: true, completion: nil)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,11 +88,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     //    fetch json data
-    func parseJson() {
+    func parseJson(_ jsonUrl: String) {
         guard let url = URL(string: jsonUrl) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, res, err) in
-            guard let data = data else { return }
+            guard let data = data else { self.downloadFailAlert(); return }
             
             do {
                 self.quizContent = try JSONDecoder().decode([Quiz].self, from: data)
@@ -110,14 +120,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         if Reachability.isConnectedToNetwork(){
-            print("Internet Connection Available!")
+            parseJson(jsonUrl)
         }else{
-            print("Internet Connection not Available!")
+            noInternetAlert()
+            
         }
     }
     
+    func noInternetAlert() {
+        let alert = UIAlertController(title: "Warning", message: "No internet, will use local data", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func downloadFailAlert() {
+        let alert = UIAlertController(title: "Warning", message: "Download Failed", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     
 }
 
