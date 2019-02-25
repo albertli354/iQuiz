@@ -9,7 +9,7 @@
 import UIKit
 
 class FinishedViewController: UIViewController {
-
+    var rightNum: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 

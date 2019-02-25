@@ -14,7 +14,7 @@ class AnswerViewController: UIViewController {
     var userSelectionIndex: Int = -1
     var totalAnswered: Int = 0
     var rightNum: Int = 0
-    var questionText: String = ""
+//    var questionText: String = ""
     var userAnswerText: String = ""
     var correctAnswerIndex: Int = -1
     var answeredRight: Bool = false
@@ -34,7 +34,7 @@ class AnswerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        answerView.text = questionText
+        answerView.text = quizContent?[subjectIndex].questions[totalAnswered].text
         currectAnswerView.text = correctAnswerText
         userAnswerView.text = userAnswerText
         setIndicator()
@@ -52,21 +52,24 @@ class AnswerViewController: UIViewController {
     }
     
     @IBAction func nextButton(_ sender: Any) {
-        if totalAnswered == (quizContent?[subjectIndex].questions.count)! - 1 {
+        totalAnswered += 1
+        if totalAnswered == quizContent?[subjectIndex].questions.count {
             performSegue(withIdentifier: "toFinishedView", sender: self)
         } else {
             performSegue(withIdentifier: "backToQuestion", sender: self)
         }
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "backToQuestion" {
             let vc = segue.destination as! QuestionViewController
-            vc.totalAnswered = totalAnswered + 1
+            vc.totalAnswered = totalAnswered
             vc.rightNum = rightNum
+            vc.quizContent = quizContent
+            vc.subjectIndex = subjectIndex
         } else if (segue.identifier == "toFinishedView") {
             let vc = segue.destination as! FinishedViewController
+            vc.rightNum = rightNum
         }
     }
     

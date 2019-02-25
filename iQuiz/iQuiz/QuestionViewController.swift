@@ -20,9 +20,9 @@ class QuestionViewController: UIViewController {
     var correctAnswerText: String = ""
     var userSelectionIndex: Int = -1
     var quizContent: [Quiz]? = nil
-    var subjectIndex: Int? = nil
+    var subjectIndex: Int = -1
     var totalAnswered: Int = 0
-    var questionText: String = ""
+//    var questionText: String = ""
     var userAnswerText: String = ""
     var correctAnswerIndex: Int = -1
     var answeredRight: Bool = false
@@ -34,12 +34,12 @@ class QuestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         choices = [choiceA, choiceB, choiceC, choiceD]
-        
-        questionLabel.text = quizContent![subjectIndex!].questions[totalAnswered].text
-        questionText = questionLabel.text!
+
+        questionLabel.text = quizContent?[subjectIndex].questions[totalAnswered].text
+//        questionText = questionLabel.text!
 
         for i in 0...3 {
-            choices[i].setTitle(quizContent![subjectIndex!].questions[totalAnswered].answers[i], for: .normal)
+            choices[i].setTitle(quizContent?[subjectIndex].questions[totalAnswered].answers[i], for: .normal)
         }
     }
     
@@ -61,14 +61,14 @@ class QuestionViewController: UIViewController {
     
     func colorHelper(userSlection index: Int) {
         choices[index].backgroundColor = UIColor.blue
-        correctAnswerIndex = Int(quizContent![subjectIndex!].questions[totalAnswered].answer)!
-        correctAnswerText = quizContent![subjectIndex!].questions[totalAnswered].answers[correctAnswerIndex - 1]
+        correctAnswerIndex = Int(quizContent![subjectIndex].questions[totalAnswered].answer)!
+        correctAnswerText = quizContent![subjectIndex].questions[totalAnswered].answers[correctAnswerIndex - 1]
         for i in 0...3 {
             if i != index {
                 choices[i].backgroundColor = UIColor.lightGray
             } else {
                 userSelectionIndex = i
-                userAnswerText = quizContent![subjectIndex!].questions[totalAnswered].answers[i]
+                userAnswerText = quizContent![subjectIndex].questions[totalAnswered].answers[i]
             }
         }
 
@@ -86,14 +86,14 @@ class QuestionViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toAnswer" {
             let vc = segue.destination as! AnswerViewController
-            vc.questionText = questionText
+//            vc.questionText = questionText
             vc.correctAnswerText = correctAnswerText
             vc.userAnswerText = userAnswerText
             vc.correctAnswerIndex = correctAnswerIndex
             vc.userSelectionIndex = userSelectionIndex
             vc.totalAnswered = totalAnswered
             vc.quizContent = quizContent
-            vc.subjectIndex = subjectIndex!
+            vc.subjectIndex = subjectIndex
         }
     }
 
