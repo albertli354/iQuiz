@@ -94,6 +94,7 @@ class QuestionViewController: UIViewController {
             vc.totalAnswered = totalAnswered
             vc.quizContent = quizContent
             vc.subjectIndex = subjectIndex
+            vc.rightNum = rightNum
         }
     }
 

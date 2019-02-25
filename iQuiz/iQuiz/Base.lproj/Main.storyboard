@@ -328,28 +328,43 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0N-08-7iV">
+                                <rect key="frame" x="30" y="318" width="364" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="REL-QJ-2k2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Gzf-k3-0od" firstAttribute="leading" secondItem="pkt-3e-R6i" secondAttribute="leading" constant="20" id="9fd-wz-rb4"/>
                             <constraint firstItem="c3F-Xz-Sr7" firstAttribute="leading" secondItem="pkt-3e-R6i" secondAttribute="leading" constant="30" id="Ib3-Hv-RQi"/>
+                            <constraint firstItem="b0N-08-7iV" firstAttribute="top" secondItem="Yfb-N2-KAX" secondAttribute="bottom" constant="8" id="Ows-4X-M96"/>
                             <constraint firstItem="c3F-Xz-Sr7" firstAttribute="top" secondItem="pkt-3e-R6i" secondAttribute="top" constant="98" id="RHs-AQ-dRA"/>
                             <constraint firstItem="Yfb-N2-KAX" firstAttribute="leading" secondItem="pkt-3e-R6i" secondAttribute="leading" constant="30" id="Ver-N0-EZL"/>
                             <constraint firstItem="pkt-3e-R6i" firstAttribute="trailing" secondItem="c3F-Xz-Sr7" secondAttribute="trailing" constant="30" id="gnI-N9-p3S"/>
                             <constraint firstItem="Yfb-N2-KAX" firstAttribute="top" secondItem="c3F-Xz-Sr7" secondAttribute="bottom" constant="150" id="iXc-dt-Skz"/>
+                            <constraint firstItem="b0N-08-7iV" firstAttribute="leading" secondItem="pkt-3e-R6i" secondAttribute="leading" constant="30" id="mJh-pI-bzS"/>
                             <constraint firstItem="Gzf-k3-0od" firstAttribute="top" secondItem="pkt-3e-R6i" secondAttribute="top" id="seo-hn-uuC"/>
+                            <constraint firstItem="pkt-3e-R6i" firstAttribute="trailing" secondItem="b0N-08-7iV" secondAttribute="trailing" constant="20" id="y4w-2V-KzP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pkt-3e-R6i"/>
                     </view>
+                    <connections>
+                        <outlet property="descriptiveText" destination="c3F-Xz-Sr7" id="OVb-i0-YGe"/>
+                        <outlet property="scoreLabel" destination="b0N-08-7iV" id="cKW-zo-N0B"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m26-NO-o8g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2758" y="132"/>
+            <point key="canvasLocation" x="2757.971014492754" y="131.25"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UxZ-2N-9nk"/>
         <segue reference="jBY-E8-lf3"/>
-        <segue reference="aNx-97-g2S"/>
+        <segue reference="y93-Ne-Ili"/>
     </inferredMetricsTieBreakers>
 </document>

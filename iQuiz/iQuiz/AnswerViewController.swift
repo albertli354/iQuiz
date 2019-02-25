@@ -14,7 +14,6 @@ class AnswerViewController: UIViewController {
     var userSelectionIndex: Int = -1
     var totalAnswered: Int = 0
     var rightNum: Int = 0
-//    var questionText: String = ""
     var userAnswerText: String = ""
     var correctAnswerIndex: Int = -1
     var answeredRight: Bool = false
@@ -70,6 +69,7 @@ class AnswerViewController: UIViewController {
         } else if (segue.identifier == "toFinishedView") {
             let vc = segue.destination as! FinishedViewController
             vc.rightNum = rightNum
+            vc.totalAnswered = totalAnswered
         }
     }
     
