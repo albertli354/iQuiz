@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		501BA5BE2223B36400CB3549 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501BA5BD2223B36400CB3549 /* Reachability.swift */; };
 		502E81BF2219076500B4843D /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E81BE2219076500B4843D /* QuestionViewController.swift */; };
 		502E81C122190E3800B4843D /* AnswerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E81C022190E3800B4843D /* AnswerViewController.swift */; };
 		502E81C322190E5300B4843D /* FinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502E81C222190E5300B4843D /* FinishedViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		501BA5BD2223B36400CB3549 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		502E81BE2219076500B4843D /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		502E81C022190E3800B4843D /* AnswerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerViewController.swift; sourceTree = "<group>"; };
 		502E81C222190E5300B4843D /* FinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				50ACC7EE221538F000BFD555 /* LaunchScreen.storyboard */,
 				50ACC7F1221538F000BFD555 /* Info.plist */,
 				50ACC7E9221538F000BFD555 /* iQuiz.xcdatamodeld */,
+				501BA5BD2223B36400CB3549 /* Reachability.swift */,
 			);
 			path = iQuiz;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				501BA5BE2223B36400CB3549 /* Reachability.swift in Sources */,
 				502E81C322190E5300B4843D /* FinishedViewController.swift in Sources */,
 				50ACC7E5221538F000BFD555 /* ViewController.swift in Sources */,
 				50ACC7EB221538F000BFD555 /* iQuiz.xcdatamodeld in Sources */,

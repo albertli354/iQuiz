@@ -31,7 +31,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var shortDescription: [String] = []
     var images = ["science.jpg", "marvel.png", "math.png"]
     var quizContent: [Quiz]? = nil
-    
+    var jsonUrl = "http://tednewardsandbox.site44.com/questions.json"
+    var userInput: UITextField = UITextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,12 +48,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let alert = UIAlertController(title: "Settings", message: "Enter a URL to retrieve data online", preferredStyle: .alert)
         
         alert.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Enter URL here"
+            self.userInput = textField
+            self.userInput.placeholder = "Enter URL here"
         }
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))        
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+            (act: UIAlertAction) in
+            if (self.userInput.text != nil) {
+                self.jsonUrl = self.userInput.text!
+            }
+        
+        }
+        ))
+    
         present(alert, animated: true, completion: nil)
     }
     
@@ -70,7 +79,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //    fetch json data
     func parseJson() {
-        guard let url = URL(string: "http://tednewardsandbox.site44.com/questions.json") else { return }
+        guard let url = URL(string: jsonUrl) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, res, err) in
             guard let data = data else { return }
@@ -98,6 +107,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let questionView = segue.destination as! QuestionViewController
             questionView.quizContent = self.quizContent
             questionView.subjectIndex = subjectIndex
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        }else{
+            print("Internet Connection not Available!")
         }
     }
     
