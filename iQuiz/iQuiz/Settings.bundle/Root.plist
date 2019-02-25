@@ -10,9 +10,11 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string></string>
+			<string>json url</string>
 			<key>Key</key>
-			<string></string>
+			<string>jsonURL</string>
+			<key>DefaultValue</key>
+			<string>http://tednewardsandbox.site44.com/questions.json</string>
 		</dict>
 	</array>
 </dict>

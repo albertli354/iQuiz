@@ -24,15 +24,15 @@ struct Question: Decodable {
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    
+    let defaults = UserDefaults.standard
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingButton: UIBarButtonItem!
     var subjectsTitles: [String] = []
     var shortDescription: [String] = []
     var images = ["science.jpg", "marvel.png", "math.png"]
     var quizContent: [Quiz]? = nil
-    var jsonUrl = "http://tednewardsandbox.site44.com/questions.json"
-    // my own json url: https://api.myjson.com/bins/16slme
+    var jsonUrl = "https://api.myjson.com/bins/vhkue"
+    // my own json url: https://api.myjson.com/bins/vhkue
     var userInput: UITextField = UITextField()
     
     override func viewDidLoad() {
@@ -41,15 +41,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         
-//        if Reachability.isConnectedToNetwork(){
-//            //parseJson()
-//            if quizContent == nil {
-//                downloadFailAlert()
-//            }
-//        }else{
-//            noInternetAlert()
-//
-//        }
     }
     
     
@@ -95,14 +86,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             guard let data = data else { self.downloadFailAlert(); return }
             
             do {
+                //self.quizContent = nil
                 self.quizContent = try JSONDecoder().decode([Quiz].self, from: data)
+                self.defaults.set(data, forKey: "initialQuizContent")
+                
                 for quiz in self.quizContent! {
                     self.subjectsTitles.append(quiz.title)
                     self.shortDescription.append(quiz.desc)
                 }
                 
-            }catch let jsonError {
-                print("Error: \(jsonError)")
+            } catch {
+                self.downloadFailAlert()
             }
             DispatchQueue.main.async() {
                 self.tableView.reloadData()
@@ -122,11 +116,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     override func viewDidAppear(_ animated: Bool) {
-        if Reachability.isConnectedToNetwork(){
+        if Reachability.isConnectedToNetwork() {
             parseJson(jsonUrl)
         }else{
             noInternetAlert()
-            
+            do  {
+                let defaultData = defaults.object(forKey: "initialQuizContent")
+                self.quizContent = try JSONDecoder().decode([Quiz].self, from: defaultData as! Data)
+                for quiz in self.quizContent! {
+                    self.subjectsTitles.append(quiz.title)
+                    self.shortDescription.append(quiz.desc)
+                }
+            } catch {
+                self.downloadFailAlert()
+            }
+            DispatchQueue.main.async() {
+                self.tableView.reloadData()
+            }
         }
     }
     
