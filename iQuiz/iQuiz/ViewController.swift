@@ -35,14 +35,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // my own json url: https://api.myjson.com/bins/vhkue
     var userInput: UITextField = UITextField()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.tableFooterView = UIView()
+        
+       
+        if defaults.object(forKey: "userUrl") != nil {
+            self.jsonUrl = defaults.object(forKey: "userUrl") as! String
+        }
     }
     
-    
+ 
     @IBAction func settingsAction(_ sender: Any) {
         let alert = UIAlertController(title: "Settings", message: "Enter a URL to retrieve data online", preferredStyle: .alert)
         
@@ -51,14 +56,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.userInput.placeholder = "Enter URL here"
         }
         
-        alert.addAction(UIAlertAction(title: "cancel", style: .default, handler: nil))        
+        alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))        
         alert.addAction(UIAlertAction(title: "check now", style: .default, handler: {
             (act: UIAlertAction) in
-            //self.parseJson("https://api.myjson.com/bins/vhkue")
             if (self.userInput.text != nil) {
-                self.parseJson(self.userInput.text!)
+                self.jsonUrl = self.userInput.text!
+                self.parseJson(self.jsonUrl)
             }
-        
         }
         ))
     
@@ -80,10 +84,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // fetch json data
     func parseJson(_ jsonUrl: String) {
+        if (jsonUrl == "") {
+            downloadFailAlert()
+        }
         guard let url = URL(string: jsonUrl) else { return }
-        
         URLSession.shared.dataTask(with: url) { (data, res, err) in
             guard let data = data else { self.downloadFailAlert(); return }
+            self.defaults.set(jsonUrl, forKey: "userUrl")
             self.defaults.set(data, forKey: "initialQuizContent")
             do {
                 self.quizContent = try JSONDecoder().decode([Quiz].self, from: data)
@@ -116,6 +123,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let questionView = segue.destination as! QuestionViewController
             questionView.quizContent = self.quizContent
             questionView.subjectIndex = subjectIndex
+    
         }
     }
     
@@ -123,7 +131,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidAppear(_ animated: Bool) {
         if Reachability.isConnectedToNetwork() {
             parseJson(jsonUrl)
-        }else{
+        } else {
             noInternetAlert()
             do  {
                 let defaultData = defaults.object(forKey: "initialQuizContent")
@@ -136,6 +144,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.tableView.reloadData()
             }
         }
+        
     }
     
     func noInternetAlert() {

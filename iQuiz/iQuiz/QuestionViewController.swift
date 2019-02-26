@@ -10,7 +10,7 @@ import UIKit
 
 class QuestionViewController: UIViewController {
 
-    
+  
     @IBOutlet weak var choiceA: UIButton!
     @IBOutlet weak var choiceD: UIButton!
     @IBOutlet weak var choiceC: UIButton!

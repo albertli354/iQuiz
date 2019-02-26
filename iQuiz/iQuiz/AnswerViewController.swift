@@ -10,6 +10,7 @@ import UIKit
 
 class AnswerViewController: UIViewController {
 
+    
     var correctAnswerText: String = ""
     var userSelectionIndex: Int = -1
     var totalAnswered: Int = 0
@@ -66,10 +67,12 @@ class AnswerViewController: UIViewController {
             vc.rightNum = rightNum
             vc.quizContent = quizContent
             vc.subjectIndex = subjectIndex
+  
         } else if (segue.identifier == "toFinishedView") {
             let vc = segue.destination as! FinishedViewController
             vc.rightNum = rightNum
             vc.totalAnswered = totalAnswered
+            
         }
     }
     

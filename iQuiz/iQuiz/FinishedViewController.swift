@@ -14,7 +14,7 @@ class FinishedViewController: UIViewController {
     
     @IBOutlet weak var descriptiveText: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
-    
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
