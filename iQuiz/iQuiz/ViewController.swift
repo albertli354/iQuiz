@@ -31,7 +31,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var shortDescription: [String] = []
     var images = ["science.jpg", "marvel.png", "math.png"]
     var quizContent: [Quiz]? = nil
-    var jsonUrl = "https://api.myjson.com/bins/vhkue"
+    var jsonUrl = "http://tednewardsandbox.site44.com/questions.json"
     // my own json url: https://api.myjson.com/bins/vhkue
     var userInput: UITextField = UITextField()
     
@@ -40,7 +40,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        
     }
     
     
@@ -55,6 +54,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         alert.addAction(UIAlertAction(title: "cancel", style: .default, handler: nil))        
         alert.addAction(UIAlertAction(title: "check now", style: .default, handler: {
             (act: UIAlertAction) in
+            //self.parseJson("https://api.myjson.com/bins/vhkue")
             if (self.userInput.text != nil) {
                 self.parseJson(self.userInput.text!)
             }
@@ -78,22 +78,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-    //    fetch json data
+    // fetch json data
     func parseJson(_ jsonUrl: String) {
         guard let url = URL(string: jsonUrl) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, res, err) in
             guard let data = data else { self.downloadFailAlert(); return }
-            
+            self.defaults.set(data, forKey: "initialQuizContent")
             do {
-                //self.quizContent = nil
                 self.quizContent = try JSONDecoder().decode([Quiz].self, from: data)
-                self.defaults.set(data, forKey: "initialQuizContent")
-                
-                for quiz in self.quizContent! {
-                    self.subjectsTitles.append(quiz.title)
-                    self.shortDescription.append(quiz.desc)
-                }
+                self.contentHelper()
                 
             } catch {
                 self.downloadFailAlert()
@@ -102,6 +96,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.tableView.reloadData()
             }
         }.resume()
+    }
+    
+    func contentHelper() {
+        if !self.subjectsTitles.isEmpty {
+            self.subjectsTitles.removeAll()
+            self.shortDescription.removeAll()
+        }
+        for quiz in self.quizContent! {
+            self.subjectsTitles.append(quiz.title)
+            self.shortDescription.append(quiz.desc)
+        }
     }
     
     // pass index to the question view controller
@@ -123,10 +128,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             do  {
                 let defaultData = defaults.object(forKey: "initialQuizContent")
                 self.quizContent = try JSONDecoder().decode([Quiz].self, from: defaultData as! Data)
-                for quiz in self.quizContent! {
-                    self.subjectsTitles.append(quiz.title)
-                    self.shortDescription.append(quiz.desc)
-                }
+                self.contentHelper()
             } catch {
                 self.downloadFailAlert()
             }
